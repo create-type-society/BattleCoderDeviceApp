@@ -1,9 +1,11 @@
-﻿using Device;
+﻿using System.IO;
+using Device;
 using UnityEngine;
 
 public class God : MonoBehaviour
 {
     [SerializeField] private IDeviceInput deviceInput = new AccelerometerDeviceInput();
+    private SendDeviceDataEventArgs e;
 
     void Start()
     {
@@ -17,9 +19,23 @@ public class God : MonoBehaviour
 
     private void DeviceInputOnSendDeviceDataEvent(object sender, SendDeviceDataEventArgs e)
     {
-        foreach (byte b in e.Buffer)
-        {
-            print(b);
-        }
+        int i = 0;
+        this.e = e;
+    }
+
+    private void OnGUI()
+    {
+        if (e == null)
+            return;
+
+        var m = new MemoryStream(e.Buffer);
+        var br = new BinaryReader(m);
+
+        GUI.Label(new Rect(10, 50, 100, 50), "X:" + br.ReadSingle(), new GUIStyle {fontSize = 32});
+        GUI.Label(new Rect(10, 100, 100, 50), "Y:" + br.ReadSingle(), new GUIStyle {fontSize = 32});
+        GUI.Label(new Rect(10, 150, 100, 50), "Z:" + br.ReadSingle(), new GUIStyle {fontSize = 32});
+
+        br.Close();
+        m.Close();
     }
 }
