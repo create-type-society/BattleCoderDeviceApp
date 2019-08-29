@@ -1,18 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Device;
 using UnityEngine;
 
 public class God : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private IDeviceInput deviceInput = new AccelerometerDeviceInput();
+
     void Start()
     {
-        
+        deviceInput.SendDeviceDataEvent += DeviceInputOnSendDeviceDataEvent;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        deviceInput.Update();
+    }
+
+    private void DeviceInputOnSendDeviceDataEvent(object sender, SendDeviceDataEventArgs e)
+    {
+        foreach (byte b in e.Buffer)
+        {
+            print(b);
+        }
     }
 }
