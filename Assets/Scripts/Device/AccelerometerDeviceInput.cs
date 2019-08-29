@@ -10,13 +10,11 @@ namespace Device
 
         public void Update()
         {
-            var acceleration = Input.acceleration;
+            var acceleration = Input.acceleration.magnitude;
 
             var ms = new MemoryStream();
             var bw = new BinaryWriter(ms);
-            bw.Write(acceleration.x);
-            bw.Write(acceleration.y);
-            bw.Write(acceleration.z);
+            bw.Write(acceleration);
 
             OnSendDeviceDataEvent(this, new SendDeviceDataEventArgs(DeviceType.Accelerometer, ms.ToArray()));
 
