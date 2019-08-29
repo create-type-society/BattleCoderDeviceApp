@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -45,7 +46,15 @@ public class LocalTcpClient
 
     public void Disconnect()
     {
-        _task.Dispose();
+        try
+        {
+            _task.Wait();
+        }
+        catch (AggregateException e)
+        {
+            Debug.Log(e);
+        }
+
         _client.Dispose();
     }
 }
