@@ -10,7 +10,7 @@ namespace Device
 
         public void Update()
         {
-            var acceleration = Input.acceleration.normalized;
+            var acceleration = Input.acceleration;
 
             var ms = new MemoryStream();
             var bw = new BinaryWriter(ms);
