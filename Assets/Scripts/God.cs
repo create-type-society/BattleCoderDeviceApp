@@ -31,9 +31,9 @@ public class God : MonoBehaviour
         var m = new MemoryStream(e.Buffer);
         var br = new BinaryReader(m);
 
-        GUI.Label(new Rect(10, 50, 100, 50), "X:" + br.ReadSingle(), new GUIStyle {fontSize = 32});
-        GUI.Label(new Rect(10, 100, 100, 50), "Y:" + br.ReadSingle(), new GUIStyle {fontSize = 32});
-        GUI.Label(new Rect(10, 150, 100, 50), "Z:" + br.ReadSingle(), new GUIStyle {fontSize = 32});
+        GUI.Label(new Rect(10, 50, 200, 100), "X:" + br.ReadSingle(), new GUIStyle {fontSize = 80});
+        GUI.Label(new Rect(10, 150, 200, 100), "Y:" + br.ReadSingle(), new GUIStyle {fontSize = 80});
+        GUI.Label(new Rect(10, 250, 200, 100), "Z:" + br.ReadSingle(), new GUIStyle {fontSize = 80});
 
         br.Close();
         m.Close();
