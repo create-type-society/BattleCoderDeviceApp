@@ -43,6 +43,7 @@ public class God : MonoBehaviour
     private void DeviceInputOnSendDeviceDataEvent(object sender, SendDeviceDataEventArgs e)
     {
         _eventArgs = e;
+        _localTcpClient.Send(new PacketData(PacketType.InputDeviceData, e.Buffer));
     }
 
 #if UNITY_EDITOR

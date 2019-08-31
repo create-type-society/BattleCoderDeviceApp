@@ -18,6 +18,7 @@ public struct PacketData
 
     public byte[] GetBuffer()
     {
-        return new byte[1] {(byte) Type}.Concat(Data).ToArray();
+        var buf = new[] {(byte) Type}.Concat(Data).ToArray();
+        return new[] {(byte) buf.Length}.Concat(buf).ToArray();
     }
 }
