@@ -50,7 +50,9 @@ public class God : MonoBehaviour
     private void OnGUI()
     {
         if (_eventArgs == null)
+        {
             return;
+        }
 
         var m = new MemoryStream(_eventArgs.Buffer);
         var br = new BinaryReader(m);

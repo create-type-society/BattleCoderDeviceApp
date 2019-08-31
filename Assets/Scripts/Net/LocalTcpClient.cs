@@ -8,7 +8,7 @@ public class LocalTcpClient
 {
     private const int ServerPort = 5700;
 
-    private readonly TcpClient _client;
+    private TcpClient _client;
 
     private Task _task;
 
@@ -40,8 +40,22 @@ public class LocalTcpClient
 
     public void Send(PacketData packetData)
     {
-        byte[] buf = packetData.GetBuffer();
-        _client.GetStream().Write(buf, 0, buf.Length);
+        try
+        {
+            byte[] buf = packetData.GetBuffer();
+            _client.GetStream().Write(buf, 0, buf.Length);
+        }
+        catch (InvalidOperationException e)
+        {
+            Debug.Log(e);
+            _client.Close();
+            _client = new TcpClient();
+            IsConnect = false;
+        }
+        catch (SocketException e)
+        {
+            Debug.Log(e);
+        }
     }
 
     public void Disconnect()
