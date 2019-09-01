@@ -13,10 +13,13 @@ public class God : MonoBehaviour
     private int _tick;
 
     [SerializeField] private MessageText messageText;
+    [SerializeField] private ShotButton shotButton;
 
     void Start()
     {
         _deviceInput.SendDeviceDataEvent += DeviceInputOnSendDeviceDataEvent;
+
+        shotButton.AddEventHandler(SendButtonData);
     }
 
     void Update()
@@ -44,6 +47,11 @@ public class God : MonoBehaviour
     {
         _eventArgs = e;
         _localTcpClient.Send(new PacketData(PacketType.InputDeviceData, e.Buffer));
+    }
+
+    private void SendButtonData()
+    {
+        _localTcpClient.Send(new PacketData(PacketType.InputDeviceButtonData, new byte[0]));
     }
 
 #if UNITY_EDITOR
