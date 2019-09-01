@@ -51,7 +51,10 @@ public class God : MonoBehaviour
 
     private void SendButtonData()
     {
-        _localTcpClient.Send(new PacketData(PacketType.InputDeviceButtonData, new byte[0]));
+        if (_localTcpClient.IsConnect)
+        {
+            _localTcpClient.Send(new PacketData(PacketType.InputDeviceButtonData, new byte[0]));
+        }
     }
 
 #if UNITY_EDITOR
