@@ -52,7 +52,7 @@ public class LocalTcpClient
             _client = new TcpClient();
             IsConnect = false;
         }
-        catch (SocketException e)
+        catch (Exception e)
         {
             Debug.Log(e);
         }
